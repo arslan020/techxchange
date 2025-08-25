@@ -35,7 +35,7 @@ export default function ProductCard({ p }: { p: Product }) {
       {/* body */}
       <div className="space-y-2 p-4">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="line-clamp-1 text-base font-semibold">{p.name}</h3>
+          <h3 className="line-clamp-1 text-black font-semibold">{p.name}</h3>
           {!!p.category && (
             <span className="shrink-0 rounded-md bg-[#ff5757]/10 px-2 py-0.5 text-xs font-medium text-[#ff3131]">
               {p.category}
