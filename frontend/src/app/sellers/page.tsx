@@ -46,6 +46,10 @@ export default function SellersPage() {
     })();
   }, [q, location, minRating, sort, page]);
 
+  const handleRecalc = async (id: string) => {
+    await fetch(`${API}/sellers/${id}/recalc`, { method: "POST" });
+  };
+
   const totalPages = useMemo(
     () => (data ? Math.max(1, Math.ceil(data.total / data.limit)) : 1),
     [data]
@@ -102,7 +106,17 @@ export default function SellersPage() {
             <p className="text-zinc-600">No sellers found.</p>
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {data?.items.map((s) => <SellerCard key={s._id} s={s} />)}
+              {data?.items.map((s) => (
+                <div key={s._id} className="flex flex-col items-start gap-2">
+                  <SellerCard s={s} />
+                  <button
+                    className="rounded-md border border-[#ff5757] px-2 py-1 text-sm text-[#ff5757] hover:bg-[#ff5757] hover:text-white transition"
+                    onClick={() => handleRecalc(s._id)}
+                  >
+                    Recalculate Rating
+                  </button>
+                </div>
+              ))}
             </div>
           )}
 
