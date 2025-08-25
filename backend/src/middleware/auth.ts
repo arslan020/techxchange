@@ -1,14 +1,28 @@
 import type { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 
-// Attach req.user when you implement real JWT
-export const requireAuth = (_req: Request, _res: Response, next: NextFunction) => {
-  // TODO: verify JWT & set req.user
-  next();
-};
+export interface AuthUser { _id: string; role: "buyer"|"seller"|"admin"; email: string; }
+declare module "express-serve-static-core" { interface Request { user?: AuthUser } }
 
-export const requireRole = (roles: Array<"buyer"|"seller"|"admin">) =>
-  (req: Request, res: Response, next: NextFunction) => {
-    // TODO: check req.user?.role in real impl
-    // For now just pass:
+const JWT_SECRET = process.env.JWT_SECRET || "change-me";
+
+export function requireAuth(req: Request, res: Response, next: NextFunction) {
+  const hdr = req.headers.authorization;
+  const token = hdr?.startsWith("Bearer ") ? hdr.slice(7) : undefined;
+  if (!token) return res.status(401).json({ error: "Unauthorized" });
+  try {
+    const payload = jwt.verify(token, JWT_SECRET) as AuthUser;
+    req.user = payload;
+    next();
+  } catch {
+    res.status(401).json({ error: "Invalid token" });
+  }
+}
+
+export function requireRole(roles: Array<AuthUser["role"]>) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (!req.user) return res.status(401).json({ error: "Unauthorized" });
+    if (!roles.includes(req.user.role)) return res.status(403).json({ error: "Forbidden" });
     next();
   };
+}
