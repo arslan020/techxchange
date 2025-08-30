@@ -1,5 +1,11 @@
 import "./globals.css";
-import { CartProvider } from "@/app/context/cartContext";
+import type { Metadata } from "next";
+import CartProvider from "@/app/context/cartContext";
+
+export const metadata: Metadata = {
+  title: "TechXChange",
+  description: "Marketplace",
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

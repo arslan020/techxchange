@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User, { type IUser } from "../models/User";
 import { asyncHandler } from "../utils/asyncHandler";
-import { ApiError } from "../utils/ApiError";
+import ApiError from "../utils/ApiError";
 
 const JWT_SECRET = process.env.JWT_SECRET || "change-me";
 const EXPIRES = "1h";

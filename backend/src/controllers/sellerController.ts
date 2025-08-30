@@ -3,7 +3,7 @@ import { validationResult } from "express-validator";
 import Seller from "../models/Seller";
 import { asyncHandler } from "../utils/asyncHandler";
 import { parsePagination } from "../utils/pagination";
-import { ApiError } from "../utils/ApiError";
+import ApiError from "../utils/ApiError";
 
 export const createSeller = asyncHandler(async (req: Request, res: Response) => {
   const errors = validationResult(req);

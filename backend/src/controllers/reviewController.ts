@@ -3,7 +3,7 @@ import { validationResult } from "express-validator";
 import Review from "../models/Review";
 import { asyncHandler } from "../utils/asyncHandler";
 import { parsePagination } from "../utils/pagination";
-import { ApiError } from "../utils/ApiError";
+import ApiError from "../utils/ApiError";
 import { recalcRating } from "../utils/recalcRating";
 
 function getRequiredParam(req: Request, key: string): string {

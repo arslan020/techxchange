@@ -82,7 +82,7 @@ export default function ProductsPage() {
 
       <div className="grid gap-8 md:grid-cols-[260px_1fr]">
         {/* Filters */}
-        <aside className="rounded-2xl border border-zinc-200 bg-white p-4">
+        <aside className="rounded-2xl border border-zinc-200 bg-white p-4 text-black">
           <h2 className="mb-3 text-sm font-semibold text-zinc-700">Filters</h2>
 
           {/* Search */}

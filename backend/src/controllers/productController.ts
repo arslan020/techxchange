@@ -4,7 +4,8 @@ import { validationResult } from "express-validator";
 import Product from "../models/Product";
 import { asyncHandler } from "../utils/asyncHandler";
 import { parsePagination } from "../utils/pagination";
-import { ApiError } from "../utils/ApiError";
+import ApiError from "../utils/ApiError";
+
 
 /** Convert "price:asc" | "ratingAvg:desc" | undefined → Record<string, SortOrder> */
 function parseSort(input?: string): Record<string, SortOrder> {
