@@ -7,6 +7,7 @@ import metaRoutes from "./metaRoutes";
 import adminRoutes from "./adminRoutes";
 import cartRoutes from "./cartRoutes";
 import orderRoutes from "./orderRoutes";
+import newsRoutes from "./newsRoutes";
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use("/meta", metaRoutes);
 router.use("/admin", adminRoutes);
 router.use("/cart", cartRoutes);
 router.use("/orders", orderRoutes);
+router.use("/news", newsRoutes);
 
 export default router;

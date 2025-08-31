@@ -55,6 +55,7 @@ export default function Navbar() {
         <div className="hidden items-center gap-6 md:flex">
           <Link href="/products" className={linkCls("/products")}>Products</Link>
           <Link href="/sellers" className={linkCls("/sellers")}>Sellers</Link>
+          <Link href="/news" className={linkCls("/news")}>News</Link>
           <Link href="/about" className={linkCls("/about")}>About</Link>
           <Link href="/contact" className={linkCls("/contact")}>Contact</Link>
 
@@ -125,6 +126,7 @@ export default function Navbar() {
           <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4">
             <Link href="/products" className={linkCls("/products")}>Products</Link>
             <Link href="/sellers" className={linkCls("/sellers")}>Sellers</Link>
+            <Link href="/news" className={linkCls("/news")}>News</Link>
             <Link href="/about" className={linkCls("/about")}>About</Link>
             <Link href="/contact" className={linkCls("/contact")}>Contact</Link>
 
