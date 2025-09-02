@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
 async function safeMsg(res: Response) {

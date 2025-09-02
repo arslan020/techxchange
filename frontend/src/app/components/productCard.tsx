@@ -23,8 +23,19 @@ export default function ProductCard({ p }: { p: Product }) {
       await addToCart(p._id, 1);
       await refresh();       // reflect latest cart contents
       openCart();            // show drawer
-    } catch (e: any) {
-      alert(e.message || "Failed to add");
+    } catch (e: unknown) {
+      let msg = "Failed to add";
+      if (e instanceof Error) {
+        msg = e.message;
+      } else if (
+        typeof e === "object" &&
+        e !== null &&
+        "message" in e &&
+        typeof (e as Record<string, unknown>).message === "string"
+      ) {
+        msg = (e as Record<string, unknown>).message as string;
+      }
+      alert(msg);
     } finally {
       setBusy(false);
     }
@@ -39,7 +50,10 @@ export default function ProductCard({ p }: { p: Product }) {
         className="aspect-[4/3] w-full rounded-xl object-cover"
       />
       <div className="mt-3 text-black">
-        <Link href={`/products/${p._id}`} className="line-clamp-1 font-semibold hover:underline">
+        <Link
+          href={`/products/${p._id}`}
+          className="line-clamp-1 font-semibold hover:underline"
+        >
           {p.name}
         </Link>
         <p className="text-sm text-zinc-600">${p.price.toFixed(2)}</p>

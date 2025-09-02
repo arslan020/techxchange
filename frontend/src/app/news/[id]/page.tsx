@@ -2,6 +2,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import Navbar from "@/app/components/navbar";
 import Footer from "@/app/components/footer";
+import Link from "next/link";
 
 const API = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -19,7 +20,7 @@ export default async function NewsArticlePage({ params }: { params: { id: string
       <Navbar />
       <main className="mx-auto max-w-3xl px-6 py-10">
         <nav className="mb-6 text-sm text-zinc-600">
-          <a href="/news" className="hover:underline">News</a> <span>/</span>{" "}
+          <Link href="/news" className="hover:underline">News</Link> <span>/</span>{" "}
           <span className="text-[#ff3131]">{a.title}</span>
         </nav>
 

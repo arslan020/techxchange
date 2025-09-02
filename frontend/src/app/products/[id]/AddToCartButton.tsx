@@ -14,8 +14,19 @@ export default function AddToCartButton({ productId }: { productId: string }) {
       await addToCart(productId, 1);
       await refresh();
       openCart();
-    } catch (e: any) {
-      alert(e.message || "Failed to add to cart");
+    } catch (e: unknown) {
+      let msg = "Failed to add to cart";
+      if (e instanceof Error) {
+        msg = e.message;
+      } else if (
+        typeof e === "object" &&
+        e !== null &&
+        "message" in e &&
+        typeof (e as Record<string, unknown>).message === "string"
+      ) {
+        msg = (e as Record<string, unknown>).message as string;
+      }
+      alert(msg);
     } finally {
       setBusy(false);
     }

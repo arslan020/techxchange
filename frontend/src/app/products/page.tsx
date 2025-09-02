@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard, { type Product } from "@/app/components/productCard";
 import Navbar from "@/app/components/navbar";
 import Footer from "@/app/components/footer";
@@ -68,11 +69,6 @@ export default function ProductsPage() {
       }
     })();
   }, [q, category, minPrice, maxPrice, minRating, sort, page]);
-
-  const totalPages = useMemo(
-    () => (products ? Math.max(1, Math.ceil(products.total / products.limit)) : 1),
-    [products]
-  );
 
   return (
     <>

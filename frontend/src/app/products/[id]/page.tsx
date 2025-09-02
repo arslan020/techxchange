@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ProductGallery from "@/app/components/productGallery";
 import ReviewList from "@/app/components/reviewList";
 import Navbar from "@/app/components/navbar";
 import Footer from "@/app/components/footer";
 import AddToCartButton from "./AddToCartButton";
+import Link from "next/link";
 
 const API = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -45,8 +47,8 @@ export default async function ProductPage({ params }: { params: { id: string } }
       <main className="mx-auto max-w-7xl px-6 py-10">
         {/* breadcrumb */}
         <nav className="mb-6 text-sm text-zinc-600">
-          <a href="/" className="hover:underline">Home</a> <span>/</span>{" "}
-          <a href="/products" className="hover:underline">Products</a> <span>/</span>{" "}
+          <Link href="/" className="hover:underline">Home</Link> <span>/</span>{" "}
+          <Link href="/products" className="hover:underline">Products</Link> <span>/</span>{" "}
           <span className="text-zinc-900">{product.name}</span>
         </nav>
 

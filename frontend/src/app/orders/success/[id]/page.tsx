@@ -3,6 +3,7 @@
 import React, { useEffect, useState, use } from "react";
 import Navbar from "@/app/components/navbar";
 import Footer from "@/app/components/footer";
+import Link from "next/link";
 
 const API = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -24,14 +25,19 @@ type Order = {
   createdAt?: string;
 };
 
+function isPromise<T = unknown>(x: unknown): x is Promise<T> {
+  if (typeof x !== "object" || x === null) return false;
+  const thenProp = (x as Record<string, unknown>).then;
+  return typeof thenProp === "function";
+}
+
 // helper: unwrap Next 15 client params (may be a Promise)
 function useRouteId(
   params: { id: string } | Promise<{ id: string }>
 ): string {
-  // If params is a Promise, unwrap with React.use()
-  const resolved = (typeof (params as any)?.then === "function")
-    ? use(params as Promise<{ id: string }>)
-    : (params as { id: string });
+  const resolved = isPromise<{ id: string }>(params)
+    ? use(params)
+    : params;
   return resolved.id;
 }
 
@@ -62,8 +68,19 @@ export default function OrderSuccessPage({
         }
         const data: Order = await res.json();
         setOrder(data);
-      } catch (e: any) {
-        setErr(e.message || "Failed to load order");
+      } catch (e: unknown) {
+        let msg = "Failed to load order";
+        if (e instanceof Error) {
+          msg = e.message;
+        } else if (
+          typeof e === "object" &&
+          e !== null &&
+          "message" in e &&
+          typeof (e as Record<string, unknown>).message === "string"
+        ) {
+          msg = (e as Record<string, unknown>).message as string;
+        }
+        setErr(msg);
       } finally {
         setLoading(false);
       }
@@ -144,12 +161,12 @@ export default function OrderSuccessPage({
                 </div>
               </div>
 
-              <a
+              <Link
                 href="/products"
                 className="mt-6 inline-block rounded-lg border px-4 py-2 text-sm hover:bg-zinc-50 text-black"
               >
                 Continue shopping
-              </a>
+              </Link>
             </section>
           </>
         ) : null}

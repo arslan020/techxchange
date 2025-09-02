@@ -1,10 +1,41 @@
 "use client";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useCart } from "@/app/context/cartContext";
 import CartDrawer from "@/app/components/cartDrawer";
 
+// Type guards (no `any`)
+function hasTotalQty(x: unknown): x is { totalQty: number } {
+  return (
+    typeof x === "object" &&
+    x !== null &&
+    "totalQty" in x &&
+    typeof (x as Record<string, unknown>).totalQty === "number"
+  );
+}
+
+type CartItem = { qty?: number };
+function hasItems(x: unknown): x is { items: CartItem[] } {
+  if (typeof x !== "object" || x === null || !("items" in x)) return false;
+  const items = (x as Record<string, unknown>).items;
+  if (!Array.isArray(items)) return false;
+  // ensure each element is an object (qty may be undefined)
+  return items.every((it) => typeof it === "object" && it !== null);
+}
+
 export default function CartIcon() {
-  const { count } = useCart();
+  const ctx = useCart();
+
+  const count = useMemo(() => {
+    if (hasTotalQty(ctx)) return ctx.totalQty;
+    if (hasItems(ctx)) {
+      return ctx.items.reduce(
+        (sum, it) => sum + (typeof it.qty === "number" ? it.qty : 0),
+        0
+      );
+    }
+    return 0;
+  }, [ctx]);
+
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,6 +58,7 @@ export default function CartIcon() {
           </span>
         )}
       </button>
+
       <CartDrawer open={open} onClose={() => setOpen(false)} />
     </>
   );

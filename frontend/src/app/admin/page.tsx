@@ -54,8 +54,9 @@ export default function AdminPage() {
         ]);
         setRecentProducts(pr.items || []);
         setRecentSellers(sr.items || []);
-      } catch (e: any) {
-        setErr(e.message || "Failed to load dashboard");
+      } catch (e: unknown) {
+        const err = e as { message?: string };
+        setErr(err.message ?? "Something went wrong");
       }
     })();
   }, [stage]);
@@ -141,8 +142,14 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
       if (user.role !== "admin") throw new Error("Not an admin account");
       window.dispatchEvent(new Event("txc-auth-change"));
       onSuccess();
-    } catch (e: any) {
-      setErr(e.message || "Login failed");
+    } catch (e: unknown) {
+      const msg =
+        e instanceof Error
+          ? e.message
+          : typeof e === "object" && e && "message" in e
+          ? String((e as { message?: unknown }).message ?? "")
+          : "";
+      setErr(msg || "Login failed");
     } finally {
       setLoading(false);
     }

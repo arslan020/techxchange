@@ -1,4 +1,4 @@
-// src/utils/http.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function authHeaders(): HeadersInit {
     const token = typeof window !== "undefined" ? localStorage.getItem("txc_token") : null;
     return token ? { Authorization: `Bearer ${token}` } : {};

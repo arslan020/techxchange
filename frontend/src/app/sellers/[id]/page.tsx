@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ProductCard from "@/app/components/productCard";
 import ReviewList from "@/app/components/reviewList";
+import Link from "next/link";
 
 const API = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -46,8 +48,8 @@ export default async function SellerPage({ params, searchParams }: { params: { i
     <main className="mx-auto max-w-7xl px-6 py-10">
       {/* breadcrumb */}
       <nav className="mb-6 text-sm text-zinc-600">
-        <a href="/" className="hover:underline">Home</a> <span>/</span>{" "}
-        <a href="/sellers" className="hover:underline">Sellers</a> <span>/</span>{" "}
+        <Link href="/" className="hover:underline">Home</Link> <span>/</span>{" "}
+        <Link href="/sellers" className="hover:underline">Sellers</Link> <span>/</span>{" "}
         <span className="text-zinc-900">{seller.name}</span>
       </nav>
 

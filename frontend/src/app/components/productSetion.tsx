@@ -47,8 +47,19 @@ export default function ProductsSection() {
       if (!res.ok) throw new Error(`API ${res.status}`);
       const json: ListResp = await res.json();
       setData(json);
-    } catch (e: any) {
-      setErr(e.message || "Failed to load products");
+    } catch (e: unknown) {
+      let msg = "Failed to load products";
+      if (e instanceof Error) {
+        msg = e.message;
+      } else if (
+        typeof e === "object" &&
+        e !== null &&
+        "message" in e &&
+        typeof (e as Record<string, unknown>).message === "string"
+      ) {
+        msg = (e as Record<string, unknown>).message as string;
+      }
+      setErr(msg);
     } finally {
       setLoading(false);
     }

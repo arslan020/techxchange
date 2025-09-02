@@ -38,8 +38,10 @@ export default function NewsPage() {
         if (!r.ok) throw new Error(`API ${r.status}`);
         const j: NewsResp = await r.json();
         setData(j);
-      } catch (e: any) {
-        setErr(e.message || "Failed to load news");
+      } catch (e: unknown) {
+        let msg = "Failed to load news";
+        if (e instanceof Error) msg = e.message;
+        setErr(msg);
       } finally {
         setLoading(false);
       }

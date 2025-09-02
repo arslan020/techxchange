@@ -56,8 +56,6 @@ export default function Navbar() {
           <Link href="/products" className={linkCls("/products")}>Products</Link>
           <Link href="/sellers" className={linkCls("/sellers")}>Sellers</Link>
           <Link href="/news" className={linkCls("/news")}>News</Link>
-          <Link href="/about" className={linkCls("/about")}>About</Link>
-          <Link href="/contact" className={linkCls("/contact")}>Contact</Link>
 
           <button
             aria-label="Open cart"
@@ -127,8 +125,6 @@ export default function Navbar() {
             <Link href="/products" className={linkCls("/products")}>Products</Link>
             <Link href="/sellers" className={linkCls("/sellers")}>Sellers</Link>
             <Link href="/news" className={linkCls("/news")}>News</Link>
-            <Link href="/about" className={linkCls("/about")}>About</Link>
-            <Link href="/contact" className={linkCls("/contact")}>Contact</Link>
 
             <button onClick={openCart} className="mt-2 rounded-lg border px-3 py-2 text-left hover:bg-zinc-50">
               <span className="inline-flex items-center gap-2"><FiShoppingCart /> Cart</span>
